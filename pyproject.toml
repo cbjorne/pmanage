@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pmanage"
+version = "0.1.0"
+description = "A simple time logging CLI"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+pmanage = "pmanage.main:main"
