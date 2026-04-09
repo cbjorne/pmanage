@@ -3,9 +3,9 @@ from pmanage.db import get_conn
 
 def run(args):
     since = (datetime.now(timezone.utc) - timedelta(days=args.days)).isoformat()
-    query = "SELECT project, started_at, ended_at, note FROM entries WHERE started_at >= ?"
+    query = "SELECT id, project, started_at, ended_at, note FROM entries WHERE started_at >= ?"
     params = [since]
-
+    
     if args.project:
         query += " AND project = ?"
         params.append(args.project)
@@ -20,6 +20,8 @@ def run(args):
         return
 
     total_minutes = 0
+    print(f"{'ID':<20}{'Date':<20}{'Project':<20}{'Duration':<20}{'Note':<20}")
+    print("-" * 100)
     for row in rows:
         started = datetime.fromisoformat(row["started_at"])
         if row["ended_at"]:
@@ -31,7 +33,7 @@ def run(args):
             duration = "running"
 
         date = started.strftime("%Y-%m-%d %H:%M")
-        note = f"  {row['note']}" if row["note"] else ""
-        print(f"{date}  {row['project']:<20} {duration}{note}")
+        note = f"{row['note']}" if row["note"] else ""
+        print(f"{row['id']:<20}{date:<20}{row['project']:<20}{duration:<20}{note:<20}")
     
     print(f"\nTotal: {total_minutes // 60}h {total_minutes % 60}m")
