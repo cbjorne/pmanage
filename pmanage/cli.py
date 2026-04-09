@@ -28,7 +28,7 @@ def build_parser():
     p_projects = subparsers.add_parser("projects", help="List all projects. Usage: pmanage projects")
     p_projects.set_defaults(func=projects.run)
 
-    p_add = subparsers.add_parser("add", help="Add a time entry manually. Usage: pmanage add <project_name> <start_time> <end_time> [--start-date <start_date>] [--end-date <end_date>] [--note 'optional note']")
+    p_add = subparsers.add_parser("add", help="Add a time entry manually. Usage: pmanage add <project_name> <start_time> <end_time> [--start-date <start_date>] [--end-date <end_date>] [--note | -n 'optional note']")
     p_add.add_argument("project", type=str)
     p_add.add_argument("start_time", type=str, help="Start time (e.g. 09:00)")
     p_add.add_argument("end_time", type=str, help="End time (e.g. 17:00)")

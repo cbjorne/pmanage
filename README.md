@@ -1,6 +1,12 @@
 # pmanage
 
-A simple CLI tool for tracking time spent on projects. No external dependencies — just Python 3.11+ and SQLite.
+A simple CLI tool for tracking time spent on projects.
+
+
+## Contributing
+This is a small personal project that I use to help track time spent on different projects. Feel free to create issues, though I do not keep up to date on this repo.
+
+If you wish to contribute additional features, refer to existing issues, ensure README.md and tests are updated. Thank you for the support.
 
 ## Installation
 
@@ -23,20 +29,20 @@ After installation the `pmanage` command is available in your shell.
 pmanage <command> [options]
 ```
 
-### `start` — Start a timer
+### `start` - Start a timer
 
 ```bash
 pmanage start <project> [--note, -n <text>]
 ```
 
-Begins tracking time for **project**. Only one timer can run at a time — stop the current timer before starting a new one.
+Begins tracking time for **project**. Only one timer can run at a time - stop the current timer before starting a new one.
 
 ```bash
 pmanage start myapp
 pmanage start myapp --note "working on auth"
 ```
 
-### `stop` — Stop the running timer
+### `stop` - Stop the running timer
 
 ```bash
 pmanage stop [--note, -n <text>]
@@ -49,7 +55,7 @@ pmanage stop
 pmanage stop -n "finished auth module"
 ```
 
-### `status` — Show the active timer
+### `status` - Show the active timer
 
 ```bash
 pmanage status
@@ -57,7 +63,7 @@ pmanage status
 
 Displays the currently running project, elapsed time, and note (if any). Prints "No timer running." when idle.
 
-### `log` — View time entries
+### `log` - View time entries
 
 ```bash
 pmanage log [--project, -p <name>]
@@ -70,13 +76,41 @@ pmanage log
 pmanage log -p myapp
 ```
 
-### `projects` — List all projects
+### `projects` - List all projects
 
 ```bash
 pmanage projects
 ```
 
 Prints every project name that has at least one time entry.
+
+
+### `add` - Add a time entry manually
+
+```bash
+pmanage add <project_name> <start_time> <end_time> [--start-date <start_date>] [--end-date <end_date>] [--note | -n 'optional note']
+```
+
+Manually add a time entry, optionally add start and end dates (format: 2024-01-01) and note.
+
+
+### `delete` - Delete a time entry by id
+
+```bash
+pmanage delete <id>
+```
+
+Delete a time entry.
+
+
+### `edit` - Edit a time entry
+
+```bash
+pmanage edit <id> [--project | -p <project_name>] [--start-time | -s <start_time>] [--end-time | -e <end_time>] [--start-date <start_date>] [--end-date <end_date>] [--note | -n 'optional note']
+```
+
+Edit a time entry by id. All parameters optional except id.
+
 
 ## Data Storage
 
@@ -95,27 +129,6 @@ The database is created automatically on first run. The schema consists of a sin
 | `started_at` | TEXT    | Start time (UTC, ISO 8601)               |
 | `ended_at`   | TEXT    | End time (UTC, ISO 8601) or NULL if running |
 | `note`       | TEXT    | Optional note                            |
-
-## Project Structure
-
-```
-pmanage/
-├── pyproject.toml
-├── README.md
-├── tests/
-└── pmanage/
-    ├── __init__.py
-    ├── main.py          # Entry point — init db, parse args, dispatch
-    ├── cli.py           # Argument parser and subcommand registration
-    ├── db.py            # Database connection and schema init
-    └── commands/
-        ├── __init__.py
-        ├── start.py     # Start a timer
-        ├── stop.py      # Stop the running timer
-        ├── status.py    # Show active timer
-        ├── log.py       # List time entries
-        └── projects.py  # List all projects
-```
 
 ## License
 

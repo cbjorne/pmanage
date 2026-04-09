@@ -23,6 +23,9 @@ def tmp_db(tmp_path):
             patch("pmanage.commands.status.get_conn", _get_conn),
             patch("pmanage.commands.log.get_conn", _get_conn),
             patch("pmanage.commands.projects.get_conn", _get_conn),
+            patch("pmanage.commands.add.get_conn", _get_conn),
+            patch("pmanage.commands.delete.get_conn", _get_conn),
+            patch("pmanage.commands.edit.get_conn", _get_conn),
         ):
             init_db()
             yield _get_conn

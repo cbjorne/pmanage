@@ -73,7 +73,6 @@ class TestStop:
             row = conn.execute("SELECT * FROM entries").fetchone()
             assert row["note"] == "keep me"
 
-
 class TestStatus:
     def test_status_no_timer(self, tmp_db, capsys):
         status.run(make_args())
